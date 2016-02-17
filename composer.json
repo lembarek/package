@@ -1,0 +1,15 @@
+{
+    "name": "lembarek/package",
+    "description": "to facilate the creation of laravel package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lembarek",
+            "email": "lembarek2011@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "mustache/mustache": "^2.9"
+    }
+}
