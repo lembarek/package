@@ -10,6 +10,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "mustache/mustache": "^2.9"
+        "mustache/mustache": "^2.9",
+        "codeception/codeception": "^2.1"
     }
 }
