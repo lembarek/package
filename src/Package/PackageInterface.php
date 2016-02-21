@@ -1,4 +1,6 @@
-<?php namespace Lembarek\Package\Package;
+<?php
+
+ namespace Lembarek\Package\Package;
 interface PackageInterface
 {
 
