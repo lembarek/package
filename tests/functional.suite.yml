@@ -7,5 +7,7 @@
 class_name: FunctionalTester
 modules:
     enabled:
-        # add framework module here
-        - \Helper\Functional
+        - Laravel5
+    config:
+       Laravel5:
+            bootstrap: ../../bootstrap/app.php
