@@ -32,7 +32,10 @@ class Package implements PackageInterface
 
         $this->createSrc($path);
 
+        $this->initGit($vendor, $name);
+
     }
+
 
     /**
      * create the composer.json file
@@ -80,6 +83,19 @@ class Package implements PackageInterface
         $file = $this->fs->get($oldFile);
         $replacing = str_replace($search, $replace, $file);
         $this->fs->put($newFile, $replacing);
+    }
+
+    /**
+     * init git
+     *
+     * @param string $vendor
+     * @param string $name
+     *
+     * @return void
+     */
+    public function initGit($vendor, $name)
+    {
+        system("cd $vendor/$name && git init && git add . && git commit -m 'first init'");
     }
 
 }
