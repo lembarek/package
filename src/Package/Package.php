@@ -46,13 +46,14 @@ class Package implements PackageInterface
     private function createComposer($vendor, $name, $author_email, $author_name, $path=__DIR__)
     {
         $composer  = $path.'/composer.json';
-        $this->replaceAndSave(__DIR__.'/../stubs/composer.json', '{{name}}', $name, $composer);
+        $this->replaceAndSave(__DIR__.'/../templates/composer.json', '{{name}}', $name, $composer);
         $this->replaceAndSave($composer, '{{vendor}}', $vendor);
         $this->replaceAndSave($composer, '{{Vendor}}', ucfirst($vendor));
         $this->replaceAndSave($composer, '{{Name}}', ucfirst($name));
         $this->replaceAndSave($composer, '{{author_name}}', $author_name);
         $this->replaceAndSave($composer, '{{author_email}}', $author_email);
     }
+
 
     /**
      * create the src directory with its directories and files
@@ -64,8 +65,9 @@ class Package implements PackageInterface
     {
         $src = $path.'/src';
         mkdir($src);
-        exec('cp -R '.__DIR__."/../stubs/src $path");
+        exec('cp -R '.__DIR__."/../templates/src $path");
     }
+
 
      /**
      * Open haystack, find and replace needles, save haystack.
@@ -84,6 +86,7 @@ class Package implements PackageInterface
         $replacing = str_replace($search, $replace, $file);
         $this->fs->put($newFile, $replacing);
     }
+
 
     /**
      * init git
