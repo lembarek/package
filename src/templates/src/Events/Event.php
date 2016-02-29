@@ -1,6 +1,6 @@
 <?php
 
-namespace Lembarek\{{packageName}}\Events;
+namespace {{Vendor}}\{{Name}}\Events;
 
 abstract class Event {
 

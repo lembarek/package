@@ -1,8 +1,8 @@
 <?php
 
-namespace Lembarek\{{packageName}}\Repositories;
+namespace {{Vendor}}\{{Name}}\Repositories;
 
-use Lembarek\Core\Repositories\Repository as MainRepository;
+Lembarek\Core\Repositories\Repository as MainRepository;
 
 abstract class Repository extends MainRepository {
 

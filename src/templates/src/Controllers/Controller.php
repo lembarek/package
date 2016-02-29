@@ -1,8 +1,8 @@
 <?php
 
-namespace Lembarek\{{packageName}}\Controllers;
+namespace {{Vendor}}\{{Name}}\Controllers;
 
-use Lembarek\Core\Controllers\Controller as MainController;
+Lembarek\Core\Controllers\Controller as MainController;
 
 abstract class Controller extends MainController
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Lembarek\{{packageName}}\Models;
+namespace {{Vendor}}\{{Name}}\Models;
 
-use Lembarek\Core\Models\Model as MainModel;
+Lembarek\Core\Models\Model as MainModel;
 
 abstract class Model extends MainModel
 {
