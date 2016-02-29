@@ -40,7 +40,7 @@ class CreatePackage extends Command
 
         extract($this->getOptions());
 
-        $this->package->create($vendor, $name, $author_email, $author_name);
+        $this->package->setAll($vendor, $name, $author_email, $author_name)->create();
     }
 
     /**

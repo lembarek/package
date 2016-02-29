@@ -2,103 +2,105 @@
 
 namespace Lembarek\Package\Package;
 
-use Illuminate\Filesystem\Filesystem;
-
 class Package implements PackageInterface
 {
 
-    protected $fs;
+    protected $vendor;
 
-    public function __construct(Filesystem $fs)
+    protected $name;
+
+    protected $author_email;
+
+    protected $author_name;
+
+    protected $path;
+
+    public function __construct($vendor='', $name='', $author_email='', $author_name='')
     {
-        $this->fs = $fs;
+        $this->setAll($vendor, $name, $author_email, $author_name);
+    }
+
+
+    /**
+     * set all locals variables
+     *
+     * @param  string  $vendor
+     * @param  string  $name
+     * @param  string  $author_email
+     * @param  string  $author_name
+     * @return void
+     */
+    public function setAll($vendor, $name, $author_email, $author_name)
+    {
+        $this->vendor = $vendor;
+        $this->name = $name;
+        $this->author_email = $author_email;
+        $this->author_name = $author_name;
+        $this->path = getcwd().'/'.$this->vendor.'/'.$this->name;
+        $this->composer = "$this->path/composer.json";
+
+        return $this;
     }
 
 
     /**
      * create a new package
      *
-     * @param  string  $vendor
-     * @param  string  $name
      * @return void
      */
-    public function create($vendor, $name, $author_email, $author_name)
+    public function create()
     {
-        $path = getcwd().'/'.$vendor.'/'.$name;
 
-        mkdir($path, 0777, true);
+        mkdir($this->path, 0777, true);
 
-        $this->createComposer($vendor, $name, $author_email, $author_name, $path);
+        $this->createSrc();
 
-        $this->createSrc($path);
+        $this->replaceAllInFiles(get_subdir_files($this->path));
 
-        $this->initGit($vendor, $name);
+        initGit($this->path);
 
-    }
-
-
-    /**
-     * create the composer.json file
-     *
-     * @param  string  $path
-     * @return void
-     */
-    private function createComposer($vendor, $name, $author_email, $author_name, $path=__DIR__)
-    {
-        $composer  = $path.'/composer.json';
-        $this->replaceAndSave(__DIR__.'/../templates/composer.json', '{{name}}', $name, $composer);
-        $this->replaceAndSave($composer, '{{vendor}}', $vendor);
-        $this->replaceAndSave($composer, '{{Vendor}}', ucfirst($vendor));
-        $this->replaceAndSave($composer, '{{Name}}', ucfirst($name));
-        $this->replaceAndSave($composer, '{{author_name}}', $author_name);
-        $this->replaceAndSave($composer, '{{author_email}}', $author_email);
     }
 
 
     /**
      * create the src directory with its directories and files
      *
-     * @param  string  $path
      * @return void
      */
-    public function createSrc($path)
+    private function createSrc()
     {
-        $src = $path.'/src';
+        $src = "$this->path/src";
         mkdir($src);
-        exec('cp -R '.__DIR__."/../templates/src $path");
-    }
-
-
-     /**
-     * Open haystack, find and replace needles, save haystack.
-     *
-     * @param  string $oldFile The haystack
-     * @param  mixed  $search  String or array to look for (the needles)
-     * @param  mixed  $replace What to replace the needles for?
-     * @param  string $newFile Where to save, defaults to $oldFile
-     *
-     * @return void
-     */
-    public function replaceAndSave($oldFile, $search, $replace, $newFile = null)
-    {
-        $newFile = ($newFile == null) ? $oldFile : $newFile;
-        $file = $this->fs->get($oldFile);
-        $replacing = str_replace($search, $replace, $file);
-        $this->fs->put($newFile, $replacing);
+        exec('cp -R '.__DIR__."/../templates/* $this->path");
     }
 
 
     /**
-     * init git
+     * replace variables with its values in all files
      *
-     * @param string $vendor
-     * @param string $name
-     *
+     * @param  array  $files
      * @return void
      */
-    public function initGit($vendor, $name)
+    public function replaceAllInFiles($files)
     {
-        system("cd $vendor/$name && git init && git add . && git commit -m 'first init'");
+        foreach($files as $file)
+           $this->replaceAllInFile($file);
     }
 
+
+    /**
+     * replace variables with they values
+     *
+     * @param  string  $file
+     * @return void
+     */
+    private function replaceAllInFile($file)
+    {
+        replaceAndSave($file, '{{name}}', $this->name);
+        replaceAndSave($file, '{{vendor}}', $this->vendor);
+        replaceAndSave($file, '{{Name}}', ucfirst($this->name));
+        replaceAndSave($file, '{{Vendor}}', ucfirst($this->vendor));
+        replaceAndSave($file, '{{author_name}}', $this->author_name);
+        replaceAndSave($file, '{{author_email}}', $this->author_email);
+    }
 }
