@@ -1,9 +1,11 @@
 <?php
 
-namespace {{Vendor}}\{{Name}}\Events;
+namespace {{Vendor}
 
-abstract class Event {
+}\{{Name}}\Events;
 
-	//
+abstract class Event
+{
 
+    //
 }

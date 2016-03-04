@@ -7,4 +7,3 @@ use Lembarek\Core\Commands\Command as MainCommand;
 abstract class Command extends MainCommand
 {
 }
-

@@ -15,7 +15,7 @@ class Package implements PackageInterface
 
     protected $path;
 
-    public function __construct($vendor='', $name='', $author_email='', $author_name='')
+    public function __construct($vendor = '', $name = '', $author_email = '', $author_name = '')
     {
         $this->setAll($vendor, $name, $author_email, $author_name);
     }
@@ -83,8 +83,9 @@ class Package implements PackageInterface
      */
     public function replaceAllInFiles($files)
     {
-        foreach($files as $file)
-           $this->replaceAllInFile($file);
+        foreach ($files as $file) {
+            $this->replaceAllInFile($file);
+        }
     }
 
 

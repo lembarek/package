@@ -1,6 +1,8 @@
 <?php
 
-namespace {{Vendor}}\{{Name}}\Models;
+namespace {{Vendor}
+
+}\{{Name}}\Models;
 
 Lembarek\Core\Models\Model as MainModel;
 
