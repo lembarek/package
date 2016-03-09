@@ -1,8 +1,6 @@
 <?php
 
-namespace {{Vendor}
-
-}\{{Name}}\Requests;
+namespace {{Vendor}}\{{Name}}\Requests;
 
 Lembarek\Core\Requests\Request as MainRequest;
 

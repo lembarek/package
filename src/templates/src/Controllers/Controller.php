@@ -1,8 +1,6 @@
 <?php
 
-namespace {{Vendor}
-
-}\{{Name}}\Controllers;
+namespace {{Vendor}}\{{Name}}\Controllers;
 
 Lembarek\Core\Controllers\Controller as MainController;
 

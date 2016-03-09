@@ -1,8 +1,6 @@
 <?php
 
-namespace {{Vendor}
-
-}\{{Name}}\Events;
+namespace {{Vendor}}\{{Name}}\Events;
 
 abstract class Event
 {
