@@ -57,6 +57,8 @@ class Package implements PackageInterface
 
         $this->replaceAllInFiles(get_subdir_files($this->path));
 
+        $this->createServiceProvider();
+
         initGit($this->path);
 
     }
@@ -90,18 +92,32 @@ class Package implements PackageInterface
 
 
     /**
+     * create the service provider
+     *
+     * @return void
+     */
+    protected function createServiceProvider()
+    {
+        $file = __DIR__.'/../files/ServiceProvider.php';
+        $new_file = $this->path.'/src/Providers/'.ucfirst($this->name).'ServiceProvider.php';
+        replaceAndSave($file, 'now_string', 'now_string', $new_file);
+        $this->replaceAllInFile($new_file);
+    }
+
+
+    /**
      * replace variables with they values
      *
      * @param  string  $file
      * @return void
      */
-    private function replaceAllInFile($file)
+    private function replaceAllInFile($file, $new_file=null)
     {
         replaceAndSave($file, '{{name}}', $this->name);
         replaceAndSave($file, '{{vendor}}', $this->vendor);
         replaceAndSave($file, '{{Name}}', ucfirst($this->name));
         replaceAndSave($file, '{{Vendor}}', ucfirst($this->vendor));
         replaceAndSave($file, '{{author_name}}', $this->author_name);
-        replaceAndSave($file, '{{author_email}}', $this->author_email);
+        replaceAndSave($file, '{{author_email}}', $this->author_email, $new_file);
     }
 }
