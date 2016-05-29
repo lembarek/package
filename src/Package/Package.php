@@ -2,6 +2,8 @@
 
 namespace Lembarek\Package\Package;
 
+use Illuminate\Filesystem\Filesystem;
+
 class Package implements PackageInterface
 {
 
@@ -15,8 +17,9 @@ class Package implements PackageInterface
 
     protected $path;
 
-    public function __construct($vendor = '', $name = '', $author_email = '', $author_name = '')
+    public function __construct(Filesystem $fs, $vendor = '', $name = '', $author_email = '', $author_name = '')
     {
+        $this->fs = $fs;
         $this->setAll($vendor, $name, $author_email, $author_name);
     }
 
@@ -51,7 +54,7 @@ class Package implements PackageInterface
     public function create()
     {
 
-        mkdir($this->path, 0777, true);
+        $this->fs->makeDirectory($this->path);
 
         $this->createSrc();
 
@@ -72,7 +75,9 @@ class Package implements PackageInterface
     private function createSrc()
     {
         $src = "$this->path/src";
-        mkdir($src);
+
+        $this->fs->makeDirectory($src);
+
         exec('cp -R '.__DIR__."/../templates/* $this->path");
     }
 
