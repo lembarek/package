@@ -54,7 +54,7 @@ class Package implements PackageInterface
     public function create()
     {
 
-        $this->fs->makeDirectory($this->path);
+        $this->fs->makeDirectory($this->path, '0755', True);
 
         $this->createSrc();
 
