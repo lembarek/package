@@ -88,7 +88,7 @@ class Package implements PackageInterface
      * @param  array  $files
      * @return void
      */
-    public function replaceAllInFiles($files)
+    private function replaceAllInFiles($files)
     {
         foreach ($files as $file) {
             $this->replaceAllInFile($file);
@@ -101,7 +101,7 @@ class Package implements PackageInterface
      *
      * @return void
      */
-    protected function createServiceProvider()
+    private function createServiceProvider()
     {
         $file = __DIR__.'/../files/ServiceProvider.php';
         $new_file = $this->path.'/src/Providers/'.ucfirst($this->name).'ServiceProvider.php';
