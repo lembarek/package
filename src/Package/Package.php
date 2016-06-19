@@ -33,13 +33,14 @@ class Package implements PackageInterface
      * @param  string  $author_name
      * @return void
      */
-    public function setAll($vendor, $name, $author_email, $author_name)
+    public function setAll($vendor, $name, $author_email, $author_name, $path="")
     {
         $this->vendor = $vendor;
         $this->name = $name;
         $this->author_email = $author_email;
         $this->author_name = $author_name;
-        $this->path = getcwd().'/'.$this->vendor.'/'.$this->name;
+        if($path) $this->path = $path.'/'.$this->vendor.'/'.$this->name;
+        else $this->path = getcwd().'/'.$this->vendor.'/'.$this->name;
         $this->composer = "$this->path/composer.json";
 
         return $this;
