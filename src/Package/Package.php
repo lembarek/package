@@ -79,7 +79,7 @@ class Package implements PackageInterface
 
         $this->fs->makeDirectory($src);
 
-        exec('cp -R '.__DIR__."/../templates/* $this->path");
+        recurse_copy(__DIR__."/../templates/*",  $this->path);
     }
 
 
